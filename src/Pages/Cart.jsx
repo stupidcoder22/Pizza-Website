@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import Pizzadata from "../Store/Create";
 import Swal from "sweetalert2";
+import html2canvas from "html2canvas";
+
 const Cart = () => {
   const { cart, setCart } = useContext(Pizzadata);
   const [products, setproducts] = useState([]);
@@ -59,13 +61,22 @@ const Cart = () => {
   }
 
   function handleOrder() {
-    Swal.fire(
-      "Good job!",
-      "You have placed the order successfully!",
-      "success"
-    );
-    setproducts([]);
-    setCart({});
+    // Swal.fire(
+    //   "Good job!",
+    //   "You have placed the order successfully!",
+    //   "success"
+    // );
+    // setproducts([]);
+    // setCart({});
+    html2canvas(document.body).then(function (canvas) {
+      console.log("object");
+      var a = document.createElement("a");
+      a.href = canvas
+        .toDataURL("..assets/image/jpg")
+        .replace("image/jpeg", "image/octet-stream");
+      a.download = "somefilename.jpg";
+      a.click();
+    });
   }
 
   return products.length ? (
